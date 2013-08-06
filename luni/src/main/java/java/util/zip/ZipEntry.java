@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteOrder;
 import java.nio.charset.Charsets;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -391,6 +392,9 @@ public class ZipEntry implements ZipConstants, Cloneable {
 
         byte[] nameBytes = new byte[nameLength];
         Streams.readFully(in, nameBytes, 0, nameBytes.length);
+        if (containsNulByte(nameBytes)) {
+            throw new ZipException("Filename contains NUL byte: " + Arrays.toString(nameBytes));
+        }
         name = new String(nameBytes, 0, nameBytes.length, Charsets.UTF_8);
 
         // The RI has always assumed UTF-8. (If GPBF_UTF8_FLAG isn't set, the encoding is
@@ -405,5 +409,14 @@ public class ZipEntry implements ZipConstants, Cloneable {
             extra = new byte[extraLength];
             Streams.readFully(in, extra, 0, extraLength);
         }
+    }
+
+    private static boolean containsNulByte(byte[] bytes) {
+        for (byte b : bytes) {
+            if (b == 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }
