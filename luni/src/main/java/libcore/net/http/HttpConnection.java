@@ -188,8 +188,7 @@ final class HttpConnection {
      *
      * @param sslSocketFactory Source of new {@code SSLSocket} instances.
      * @param tlsTolerant If true, assume server can handle common
-     * TLS extensions and SSL deflate compression. If false, use
-     * an SSL3 only fallback mode without compression.
+     * TLS extensions and SSL deflate compression.
      */
     public void setupSecureSocket(SSLSocketFactory sslSocketFactory, boolean tlsTolerant)
             throws IOException {
@@ -202,9 +201,8 @@ final class HttpConnection {
             openSslSocket.setUseSessionTickets(true);
             openSslSocket.setHostname(address.uriHost);
             // use SSLSocketFactory default enabled protocols
-        } else {
-            unverifiedSocket.setEnabledProtocols(new String [] { "SSLv3" });
         }
+
         // force handshake, which can throw
         unverifiedSocket.startHandshake();
     }

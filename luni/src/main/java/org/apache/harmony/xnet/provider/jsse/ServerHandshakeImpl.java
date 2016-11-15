@@ -334,8 +334,8 @@ public class ServerHandshakeImpl extends HandshakeProtocol {
         byte[] server_version = clientHello.client_version;
         if (!ProtocolVersion.isSupported(clientHello.client_version)) {
             if (clientHello.client_version[0] >= 3) {
-                // Protocol from the future, admit that the newest thing we know is TLSv1
-                server_version = ProtocolVersion.TLSv1.version;
+                // Protocol from the future, admit that the newest thing we know is TLSv1.2
+                server_version = ProtocolVersion.TLSv1_2.version;
             } else {
                 fatalAlert(AlertProtocol.PROTOCOL_VERSION,
                            "PROTOCOL VERSION. Unsupported client version "

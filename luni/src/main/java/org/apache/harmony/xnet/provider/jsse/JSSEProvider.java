@@ -108,9 +108,9 @@ public final class JSSEProvider extends Provider {
         super("HarmonyJSSE", 1.0, "Harmony JSSE Provider");
 
         put("SSLContext.SSL", SSLContextImpl.class.getName());
-        put("SSLContext.SSLv3", SSLContextImpl.class.getName());
         put("SSLContext.TLS", SSLContextImpl.class.getName());
         put("SSLContext.TLSv1", SSLContextImpl.class.getName());
+        put("SSLContext.TLSv1_2", SSLContextImpl.class.getName());
 
         put("KeyManagerFactory.X509", KeyManagerFactoryImpl.class.getName());
         put("TrustManagerFactory.X509", TrustManagerFactoryImpl.class.getName());

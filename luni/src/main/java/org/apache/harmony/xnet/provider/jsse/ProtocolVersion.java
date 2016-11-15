@@ -27,7 +27,8 @@ public class ProtocolVersion {
      * Protocols supported by this provider implementation
      */
     public static final String[] supportedProtocols = new String[] { "TLSv1",
-            "SSLv3" };
+								     "TLSv1.1",
+								     "TLSv1.2" };
 
     private static Hashtable<String, ProtocolVersion> protocolsByName = new Hashtable<String, ProtocolVersion>(4);
 
@@ -38,7 +39,7 @@ public class ProtocolVersion {
      * @param version
      */
     public static boolean isSupported(byte[] version) {
-        if (version[0] != 3 || (version[1] != 0 && version[1] != 1)) {
+        if (version[0] != 1 || (version[1] != 0 && version[1] != 1) || (version[2] != 0 && version[2] != 2)) {
             return false;
         }
         return true;
@@ -51,12 +52,15 @@ public class ProtocolVersion {
      * @return
      */
     public static ProtocolVersion getByVersion(byte[] version) {
-        if (version[0] == 3) {
-            if (version[1] == 1) {
+        if (version[0] == 1) {
+	    if (version[1] == 0 && version[2] == 0) {
                 return TLSv1;
             }
-            if (version[1] == 0) {
-                return SSLv3;
+            if (version[1] == 1 && version[2] == 0) {
+                return TLSv1_1;
+            }
+            if (version[2] == 2) {
+                return TLSv1_2;
             }
         }
         return null;
@@ -110,22 +114,29 @@ public class ProtocolVersion {
     }
 
     /**
-     * SSL 3.0 protocol version
-     */
-    public static final ProtocolVersion SSLv3 = new ProtocolVersion("SSLv3",
-            new byte[] { 3, 0 });
-
-    /**
      * TLS 1.0 protocol version
      */
     public static final ProtocolVersion TLSv1 = new ProtocolVersion("TLSv1",
-            new byte[] { 3, 1 });
+								    new byte[] { 1, 0, 0 });
+    /**
+     * TLS 1.1 protocol version
+     */
+    public static final ProtocolVersion TLSv1_1 = new ProtocolVersion("TLSv1.1",
+								      new byte[] { 1, 1, 0 });
+
+    /**
+     * TLS 1.2 protocol version
+     */
+    public static final ProtocolVersion TLSv1_2 = new ProtocolVersion("TLSv1.2",
+								      new byte[] { 1, 1, 2 });
 
     static {
-        protocolsByName.put(SSLv3.name, SSLv3);
         protocolsByName.put(TLSv1.name, TLSv1);
-        protocolsByName.put("SSL", SSLv3);
-        protocolsByName.put("TLS", TLSv1);
+	protocolsByName.put(TLSv1_1.name, TLSv1_1);
+	protocolsByName.put(TLSv1_2.name, TLSv1_2);
+	protocolsByName.put("TLS", TLSv1);
+        protocolsByName.put("TLSv1.1", TLSv1_1);
+        protocolsByName.put("TLSv1.2", TLSv1_2);
     }
 
     /**

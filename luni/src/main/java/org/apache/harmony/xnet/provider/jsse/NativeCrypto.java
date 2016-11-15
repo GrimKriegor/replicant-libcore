@@ -252,20 +252,14 @@ public final class NativeCrypto {
 
     static {
         // Note these are added in priority order
-        add("SSL_RSA_WITH_RC4_128_MD5",              "RC4-MD5");
-        add("SSL_RSA_WITH_RC4_128_SHA",              "RC4-SHA");
         add("TLS_RSA_WITH_AES_128_CBC_SHA",          "AES128-SHA");
         add("TLS_RSA_WITH_AES_256_CBC_SHA",          "AES256-SHA");
-        add("TLS_ECDH_ECDSA_WITH_RC4_128_SHA",       "ECDH-ECDSA-RC4-SHA");
         add("TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA",   "ECDH-ECDSA-AES128-SHA");
         add("TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA",   "ECDH-ECDSA-AES256-SHA");
-        add("TLS_ECDH_RSA_WITH_RC4_128_SHA",         "ECDH-RSA-RC4-SHA");
         add("TLS_ECDH_RSA_WITH_AES_128_CBC_SHA",     "ECDH-RSA-AES128-SHA");
         add("TLS_ECDH_RSA_WITH_AES_256_CBC_SHA",     "ECDH-RSA-AES256-SHA");
-        add("TLS_ECDHE_ECDSA_WITH_RC4_128_SHA",      "ECDHE-ECDSA-RC4-SHA");
         add("TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA",  "ECDHE-ECDSA-AES128-SHA");
         add("TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",  "ECDHE-ECDSA-AES256-SHA");
-        add("TLS_ECDHE_RSA_WITH_RC4_128_SHA",        "ECDHE-RSA-RC4-SHA");
         add("TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",    "ECDHE-RSA-AES128-SHA");
         add("TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",    "ECDHE-RSA-AES256-SHA");
         add("TLS_DHE_RSA_WITH_AES_128_CBC_SHA",      "DHE-RSA-AES128-SHA");
@@ -297,7 +291,6 @@ public final class NativeCrypto {
         add("TLS_DH_anon_WITH_AES_256_CBC_SHA",      "ADH-AES256-SHA");
         add("SSL_DH_anon_WITH_3DES_EDE_CBC_SHA",     "ADH-DES-CBC3-SHA");
         add("SSL_DH_anon_WITH_DES_CBC_SHA",          "ADH-DES-CBC-SHA");
-        add("TLS_ECDH_anon_WITH_RC4_128_SHA",        "AECDH-RC4-SHA");
         add("TLS_ECDH_anon_WITH_AES_128_CBC_SHA",    "AECDH-AES128-SHA");
         add("TLS_ECDH_anon_WITH_AES_256_CBC_SHA",    "AECDH-AES256-SHA");
         add("TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA",   "AECDH-DES-CBC3-SHA");
@@ -374,20 +367,14 @@ public final class NativeCrypto {
 
     public static String[] getDefaultCipherSuites() {
         return new String[] {
-            "SSL_RSA_WITH_RC4_128_MD5",
-            "SSL_RSA_WITH_RC4_128_SHA",
             "TLS_RSA_WITH_AES_128_CBC_SHA",
             "TLS_RSA_WITH_AES_256_CBC_SHA",
-            "TLS_ECDH_ECDSA_WITH_RC4_128_SHA",
             "TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA",
             "TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA",
-            "TLS_ECDH_RSA_WITH_RC4_128_SHA",
             "TLS_ECDH_RSA_WITH_AES_128_CBC_SHA",
             "TLS_ECDH_RSA_WITH_AES_256_CBC_SHA",
-            "TLS_ECDHE_ECDSA_WITH_RC4_128_SHA",
             "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
             "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
-            "TLS_ECDHE_RSA_WITH_RC4_128_SHA",
             "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
             "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
             "TLS_DHE_RSA_WITH_AES_128_CBC_SHA",
@@ -463,14 +450,14 @@ public final class NativeCrypto {
     public static native long SSL_clear_options(int ssl, long options);
 
     public static String[] getDefaultProtocols() {
-        return new String[] { SUPPORTED_PROTOCOL_SSLV3,
-                              SUPPORTED_PROTOCOL_TLSV1,
+        return new String[] { SUPPORTED_PROTOCOL_TLSV1,
+			      SUPPORTED_PROTOCOL_TLSV1_1,
+			      SUPPORTED_PROTOCOL_TLSV1_2,
         };
     }
 
     public static String[] getSupportedProtocols() {
-        return new String[] { SUPPORTED_PROTOCOL_SSLV3,
-                              SUPPORTED_PROTOCOL_TLSV1,
+        return new String[] { SUPPORTED_PROTOCOL_TLSV1,
                               SUPPORTED_PROTOCOL_TLSV1_1,
                               SUPPORTED_PROTOCOL_TLSV1_2,
         };
